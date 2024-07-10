@@ -2,6 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/akaya_telivigala</item>
+        <item>@font/amethysta</item>
         <item>@font/spicy_rice</item>
     </array>
 </resources>
