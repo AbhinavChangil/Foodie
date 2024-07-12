@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SigninActivity"
+    android:background="@drawable/background_gradient2">
+
+    <ImageView
+        android:id="@+id/logo_login"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/logo1"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/spicy_rice"
+        android:text="Foodie"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_login"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tv_slogan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/akaya_telivigala"
+        android:text="Deliver your favourite food"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@id/tv_logo"
+        app:layout_constraintStart_toStartOf="@id/tv_logo"
+        app:layout_constraintTop_toBottomOf="@+id/tv_logo" />
+
+    <TextView
+        android:id="@+id/tv_signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/amethysta"
+        android:text="Create New Account"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        app:layout_constraintEnd_toEndOf="@id/tv_slogan"
+        app:layout_constraintStart_toStartOf="@id/tv_slogan"
+        app:layout_constraintTop_toBottomOf="@+id/tv_slogan" />
+
+    <EditText
+        android:id="@+id/edt_name"
+        android:layout_width="370dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/edittextshape"
+        android:drawableLeft="@drawable/user_plus"
+        android:elevation="20dp"
+        android:hint="Name"
+        android:drawablePadding="10dp"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        android:shadowColor="#6E6C6C"
+        android:textColorHint="#FF6E6C6C"
+        android:textSize="23sp"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_signin"
+        app:layout_constraintRight_toRightOf="@+id/tv_signin"
+        app:layout_constraintTop_toBottomOf="@+id/tv_signin" />
+
+
+    <EditText
+        android:id="@+id/edt_email2"
+        android:layout_width="370dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittextshape"
+        android:drawableLeft="@drawable/mail"
+        android:elevation="20dp"
+        android:hint="Email"
+        android:drawablePadding="10dp"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="10dp"
+        android:shadowColor="#6E6C6C"
+        android:textColorHint="#FF6E6C6C"
+        android:textSize="23sp"
+        app:layout_constraintLeft_toLeftOf="@+id/edt_name"
+        app:layout_constraintRight_toRightOf="@+id/edt_name"
+        app:layout_constraintTop_toBottomOf="@+id/edt_name" />
+
+    <EditText
+        android:id="@+id/edt_password2"
+        android:layout_width="370dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittextshape"
+        android:drawableLeft="@drawable/lock"
+        android:hint="Password"
+        android:drawablePadding="10dp"
+        android:inputType="textPassword"
+        android:elevation="20dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:paddingLeft="10dp"
+        android:textColorHint="#FF6E6C6C"
+        android:shadowColor="#6E6C6C"
+        android:textSize="23sp"
+        app:layout_constraintLeft_toLeftOf="@+id/edt_email2"
+        app:layout_constraintRight_toRightOf="@+id/edt_email2"
+        app:layout_constraintTop_toBottomOf="@+id/edt_email2" />
+
+    <TextView
+        android:id="@+id/tv_signin2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/amethysta"
+        android:text="Or"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@id/edt_password2"
+        app:layout_constraintStart_toStartOf="@id/edt_password2"
+        app:layout_constraintTop_toBottomOf="@+id/edt_password2" />
+
+    <TextView
+        android:id="@+id/tv_signin3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/amethysta"
+        android:text="Continue With"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="@id/tv_signin2"
+        app:layout_constraintStart_toStartOf="@id/tv_signin2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_signin2" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_google2"
+        android:layout_width="160dp"
+        android:layout_height="45dp"
+        android:drawableLeft="@drawable/google"
+        android:text="Google"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_signin3"
+        app:layout_constraintRight_toLeftOf="@id/btn_fb2"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        app:layout_optimizationLevel="chains"
+        android:textSize="18sp"
+        android:background="@drawable/whitebutton"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_fb2"
+        android:layout_width="160dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="40dp"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/white"
+        android:drawableLeft="@drawable/facebook"
+        android:text="Facebook"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toRightOf="@id/btn_google2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_signin3"
+        app:layout_optimizationLevel="chains"
+        android:background="@drawable/whitebutton"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_signin"
+        android:layout_width="220dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/whitebutton"
+        android:backgroundTint="#126114"
+        android:text="Create Account"
+        android:elevation="30dp"
+        android:shadowColor="#F0F6F0"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintLeft_toRightOf="@id/btn_google2"
+        app:layout_constraintRight_toLeftOf="@id/btn_fb2"
+        app:layout_constraintTop_toBottomOf="@id/btn_google2" />
+
+    <TextView
+        android:id="@+id/tv_signin4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/amethysta"
+        android:text="Already Have An Account?"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        android:layout_marginRight="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_signin" />
+    <TextView
+        android:id="@+id/tv_login_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/amethysta"
+        android:text="Login here"
+        android:textAlignment="center"
+        android:textColor="#1B14ED"
+        android:textStyle="italic"
+        android:textSize="17dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="220dp"
+        android:layout_marginRight="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/btn_signin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
