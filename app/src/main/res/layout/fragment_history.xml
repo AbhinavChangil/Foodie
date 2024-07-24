@@ -1,14 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.HistoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="History" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_recent_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/abhaya_libre"
+        android:text="Recent Order"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="9dp"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_recent_order"
+        android:layout_width="387dp"
+        android:layout_height="87dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_recent_order"
+        app:layout_constraintBottom_toTopOf="@+id/tv_previous_order"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:cardElevation="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_recent_order"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/menu2"
+                tools:srcCompat="@tools:sample/avatars"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="10dp"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/tv_food_name_recent_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fruit Salad"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                app:layout_constraintLeft_toRightOf="@+id/img_recent_order"
+                app:layout_constraintTop_toTopOf="@id/img_recent_order"
+                app:layout_constraintBottom_toBottomOf="@+id/img_recent_order"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/abhaya_libre"/>
+
+            <TextView
+                android:id="@+id/tv_food_price_recent_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/abhaya_libre"
+                android:text="Rs. 100"
+                android:textColor="@color/dark_green_logo"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_food_name_recent_order"
+                app:layout_constraintTop_toBottomOf="@+id/tv_food_name_recent_order" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/order_status"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="32dp"
+                app:cardBackgroundColor="#4CAF50"
+                app:cardCornerRadius="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/tv_previous_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/abhaya_libre"
+        android:text="Previous Orders"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_view_recent_order" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        tools:listitem="@layout/order_again_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_previous_order" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
