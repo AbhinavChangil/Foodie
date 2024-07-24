@@ -24,7 +24,7 @@
         android:id="@+id/rv_cart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/btn_proceed_cart"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_cart"
@@ -32,7 +32,7 @@
         android:layout_marginBottom="16dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button"
+        android:id="@+id/btn_proceed_cart"
         android:layout_width="350dp"
         android:layout_height="55dp"
         android:layout_marginBottom="16dp"
