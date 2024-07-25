@@ -29,7 +29,6 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener{
             val intent = Intent(this, SigninActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         binding.tvSignupLink.setOnClickListener{

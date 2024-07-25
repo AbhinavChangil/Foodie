@@ -74,6 +74,7 @@ class CartAdapter( private val cartItems:MutableList<String>, private val cartIt
             cartItems.removeAt(position)
             cartItemPrice.removeAt(position)
             cartImage.removeAt(position)
+            itemQuantities[position] = itemQuantities[position+1]
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, cartItems.size)
         }
