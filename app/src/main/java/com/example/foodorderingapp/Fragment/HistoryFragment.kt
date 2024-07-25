@@ -40,6 +40,7 @@ class HistoryFragment : Fragment() {
         binding.tvFoodPriceRecentOrder.text = orderAgainFoodPrices[0]
         binding.imgRecentOrder.setImageResource(orderAgainFoodImages[0])
 
+
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -48,7 +49,7 @@ class HistoryFragment : Fragment() {
         orderAgainFoodNames = arrayListOf("Ras Malai", "Jalebi", "Laddu", "Gulab Jamun", "Fruit Salad")
         orderAgainFoodPrices = arrayListOf("Rs. 50", "Rs. 70", "Rs. 250", "Rs. 30", "Rs. 100")
         orderAgainFoodImages = arrayListOf(R.drawable.rasmalai,R.drawable.jalebi, R.drawable.laddu, R.drawable.gulabjamun, R.drawable.menu2)
-        orderAgainAdapter = OrderAgainAdapter(orderAgainFoodNames,orderAgainFoodPrices, orderAgainFoodImages)
+        orderAgainAdapter = OrderAgainAdapter(orderAgainFoodNames,orderAgainFoodPrices, orderAgainFoodImages, requireContext())
         binding.rvHistory.adapter = orderAgainAdapter
         binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
     }

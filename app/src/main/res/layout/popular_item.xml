@@ -26,6 +26,20 @@
             android:background="@color/white">
 
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_popular2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/white">
+
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img_popular"
             android:layout_width="64dp"
@@ -35,8 +49,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="10dp"
             android:scaleType="centerCrop"/>
+
+            </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tv_food_name_popular"
@@ -46,9 +61,9 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="17dp"
-            app:layout_constraintLeft_toRightOf="@+id/img_popular"
-            app:layout_constraintTop_toTopOf="@id/img_popular"
-            app:layout_constraintBottom_toBottomOf="@+id/img_popular"
+            app:layout_constraintLeft_toRightOf="@+id/card_view_popular2"
+            app:layout_constraintTop_toTopOf="@id/card_view_popular2"
+            app:layout_constraintBottom_toBottomOf="@+id/card_view_popular2"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/abhaya_libre"/>
@@ -63,7 +78,7 @@
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@+id/img_popular"
+                app:layout_constraintLeft_toRightOf="@+id/card_view_popular2"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:fontFamily="@font/abhaya_libre"/>

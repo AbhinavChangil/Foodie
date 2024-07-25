@@ -1,11 +1,14 @@
 package com.example.foodorderingapp.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodorderingapp.DetailsActivity
 import com.example.foodorderingapp.databinding.OrderAgainItemBinding
 
-class OrderAgainAdapter (private val orderAgainItemName : ArrayList<String>, private val orderAgainItemPrice : ArrayList<String>, private val orderAgainItemImage : ArrayList<Int> ) : RecyclerView.Adapter<OrderAgainAdapter.OrderAgainViewHolder>() {
+class OrderAgainAdapter (private val orderAgainItemName : ArrayList<String>, private val orderAgainItemPrice : ArrayList<String>, private val orderAgainItemImage : ArrayList<Int>, private val requireContext:Context ) : RecyclerView.Adapter<OrderAgainAdapter.OrderAgainViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderAgainViewHolder {
         val binding = OrderAgainItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -15,6 +18,14 @@ class OrderAgainAdapter (private val orderAgainItemName : ArrayList<String>, pri
 
     override fun onBindViewHolder(holder: OrderAgainViewHolder, position: Int) {
         holder.bind(orderAgainItemName[position],orderAgainItemPrice[position], orderAgainItemImage[position])
+
+        holder.itemView.setOnClickListener {
+            //set on click listener to open food item details
+            val intent = Intent(requireContext, DetailsActivity::class.java)
+            intent.putExtra("MenuItemName", orderAgainItemName.get(position))
+            intent.putExtra("MenuItemImage", orderAgainItemImage.get(position))
+            requireContext.startActivity(intent)
+        }
     }
 
 

@@ -51,7 +51,8 @@ class SearchFragment : Fragment() {
         adapter = MenuAdapter(
             filteredMenuFoodNames,
             filteredMenuFoodPrices,
-            filteredMenuFoodImages
+            filteredMenuFoodImages,
+            requireContext()
         )
         binding.rvSearch.layoutManager = LinearLayoutManager(requireContext())
         binding.rvSearch.adapter = adapter

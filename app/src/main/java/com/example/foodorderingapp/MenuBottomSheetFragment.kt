@@ -44,7 +44,8 @@ class MenuBottomSheetFragment : BottomSheetDialogFragment() {
         val adapter = MenuAdapter(
             ArrayList(menuItemsFoodNames),
             ArrayList(menuItemsFoodPrices),
-            ArrayList(menuItemsFoodImages)
+            ArrayList(menuItemsFoodImages),
+            requireContext()
         )
         binding.rvMenu.layoutManager = LinearLayoutManager(requireContext())
         binding.rvMenu.adapter = adapter

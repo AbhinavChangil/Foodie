@@ -84,8 +84,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="18sp"
+                android:paddingTop="5dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
+                android:autofillHints="postalAddress"
                 android:inputType="textMultiLine"
                 android:textColor="@color/black"
                 android:hint="245, Sampal, Haryana, India (124113)" />

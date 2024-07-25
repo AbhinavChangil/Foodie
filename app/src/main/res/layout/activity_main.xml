@@ -35,10 +35,19 @@
         android:id="@+id/bottom_navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:itemActiveIndicatorStyle="@color/dark_green_logo"
+        app:itemTextAppearanceActive="@color/dark_green_logo"
+        app:itemRippleColor="@color/light_green_logo"
+        app:itemTextAppearanceActiveBoldEnabled="true"
+        app:itemIconTint="@color/dark_green_logo"
+        app:itemTextColor="@color/dark_green_logo"
         app:menu="@menu/menu"
+        android:minHeight="67dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
 
     <fragment
         android:id="@+id/fragmentContainerView"
