@@ -99,14 +99,32 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/order_status"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="32dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="51dp"
                 app:cardBackgroundColor="#4CAF50"
                 app:cardCornerRadius="40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toTopOf="@+id/btn_recieved_history"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_recieved_history"
+                android:layout_width="87dp"
+                android:layout_height="29dp"
+                android:text="Recieved"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:background="@drawable/addtocartshape"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/order_status"
+                app:layout_constraintRight_toRightOf="@id/order_status"
+                app:layout_constraintTop_toBottomOf="@id/order_status" />
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
