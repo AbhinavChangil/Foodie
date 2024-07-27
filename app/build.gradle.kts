@@ -58,4 +58,7 @@ dependencies {
     implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
     //dependency for google sigin
     implementation("com.google.android.gms:play-services-auth:21.2.0")
+
+    //glide dependency for loading image
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }
