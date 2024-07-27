@@ -11,6 +11,7 @@ import com.example.foodorderingapp.databinding.ActivityLoginBinding
 import com.example.foodorderingapp.databinding.ActivityStartBinding
 
 class LoginActivity : AppCompatActivity() {
+
     private val binding : ActivityLoginBinding by lazy{
         ActivityLoginBinding.inflate(layoutInflater)
     }

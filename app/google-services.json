@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "156443831076",
+    "firebase_url": "https://foodie-ae8a0-default-rtdb.firebaseio.com",
+    "project_id": "foodie-ae8a0",
+    "storage_bucket": "foodie-ae8a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156443831076:android:200f63c2c407b9b20021b1",
+        "android_client_info": {
+          "package_name": "com.example.adminfoodie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156443831076-396etl71gndnutoolc3g0qsdrpkg8b0f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.adminfoodie",
+            "certificate_hash": "2682fb618db437034f1ef80764dd408d2b1fb1d3"
+          }
+        },
+        {
+          "client_id": "156443831076-0eu846d6tu84mfpillds8t4rglduroo9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9vSBtPGXCtNNjr3oJOU08be301ukHqMI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156443831076-0eu846d6tu84mfpillds8t4rglduroo9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156443831076:android:38136ec35b773cde0021b1",
+        "android_client_info": {
+          "package_name": "com.example.foodorderingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156443831076-0eu846d6tu84mfpillds8t4rglduroo9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9vSBtPGXCtNNjr3oJOU08be301ukHqMI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156443831076-0eu846d6tu84mfpillds8t4rglduroo9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

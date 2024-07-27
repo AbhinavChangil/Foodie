@@ -2,4 +2,5 @@
     <string name="app_name">Foodie</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_web_client_id">156443831076-0eu846d6tu84mfpillds8t4rglduroo9.apps.googleusercontent.com</string>
 </resources>
