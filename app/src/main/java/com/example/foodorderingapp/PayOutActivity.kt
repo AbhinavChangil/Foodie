@@ -25,5 +25,12 @@ class PayOutActivity : AppCompatActivity() {
             bottomSheetDialogFragment.show(supportFragmentManager, "test")
 
         }
+
+        binding.btnBackPayout.setOnClickListener {
+            finish()
+        }
+
+
+
     }
 }

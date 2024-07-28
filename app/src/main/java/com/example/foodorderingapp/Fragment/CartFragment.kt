@@ -63,6 +63,7 @@ class CartFragment : Fragment() {
         return binding.root
     }
 
+
     private fun retrieveCartItems() {
         //database ka reference lenge
         database = FirebaseDatabase.getInstance()
