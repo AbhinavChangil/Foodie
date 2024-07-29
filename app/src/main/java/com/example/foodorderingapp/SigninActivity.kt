@@ -140,7 +140,7 @@ class SigninActivity : AppCompatActivity() {
 
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
         //ek node ya folder bnaenge child me jisme data store hoga and save data
-        database.child("user").child(userId).setValue(user)
+        database.child("user").child(userId).child("profile").setValue(user)
     }
 
     private fun updateUIOnSuccess() {

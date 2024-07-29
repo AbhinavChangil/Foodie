@@ -59,6 +59,14 @@ class CartAdapter(
 
     override fun getItemCount(): Int = cartItems.size
 
+
+    //get updated quantity (function is used in CartFragment.kt)
+    fun getUpdatedItemQuantities() : MutableList<Int>{
+        val itemQuantity = mutableListOf<Int>()
+        itemQuantity.addAll(cartItemQuantity)
+        return itemQuantity
+    }
+
     //isko hum bna lenge inner class
     inner class CartViewHolder(
         //varibale to complete binding
@@ -104,6 +112,7 @@ class CartAdapter(
         private fun decrease(position: Int) {
             if (itemQuantities[position] > 1) {
                 itemQuantities[position]--
+                cartItemQuantity[position] = itemQuantities[position]
                 binding.tvCartItemCount.text = itemQuantities[position].toString()
             }
         }
@@ -111,6 +120,7 @@ class CartAdapter(
         private fun increase(position: Int) {
             if (itemQuantities[position] < 10) {
                 itemQuantities[position]++
+                cartItemQuantity[position] = itemQuantities[position]
                 binding.tvCartItemCount.text = itemQuantities[position].toString()
             }
         }
@@ -177,4 +187,5 @@ class CartAdapter(
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
+
 }

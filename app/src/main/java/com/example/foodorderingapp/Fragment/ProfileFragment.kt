@@ -1,33 +1,29 @@
 package com.example.foodorderingapp.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.foodorderingapp.R
+import com.example.foodorderingapp.databinding.FragmentProfileBinding
+import com.example.foodorderingapp.model.UserModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var auth: FirebaseAuth
+    private lateinit var database: FirebaseDatabase
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -35,26 +31,98 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        // We should not change email
+        binding.edtEmailProfile.isEnabled = false
+
+        // Enable or Disable editing
+        fun enableDisable(enableDisable: Boolean) {
+            binding.edtNameProfile.isEnabled = enableDisable
+            binding.edtAddressProfile.isEnabled = enableDisable
+            binding.edtPhoneProfile.isEnabled = enableDisable
+        }
+
+        // By default disable editing
+        enableDisable(false)
+
+        // Enable editing on edit profile clicked
+        binding.editProfileLink.setOnClickListener {
+            enableDisable(true)
+            // When edit profile clicked focus on name edit text
+            binding.edtNameProfile.requestFocus()
+            binding.edtNameProfile.setSelection(binding.edtNameProfile.text.length)
+        }
+
+        // Initialize auth and database
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance()
+
+        setUserData()
+
+        binding.btnSaveInfoProfile.setOnClickListener {
+            val name = binding.edtNameProfile.text.toString()
+            val address = binding.edtAddressProfile.text.toString()
+            val email = binding.edtEmailProfile.text.toString()
+            val phone = binding.edtPhoneProfile.text.toString()
+
+            updateUserData(name, address, email, phone)
+            enableDisable(false)
+        }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun updateUserData(name: String, address: String, email: String, phone: String) {
+        val userId = auth.currentUser?.uid?:""
+        if (userId != null) {
+            val userReference = database.getReference("user").child(userId).child("profile")
+
+            val userData = hashMapOf(
+                "name" to name,
+                "address" to address,
+                "email" to email,
+                "phone" to phone
+            )
+            userReference.setValue(userData).addOnSuccessListener {
+                showToast("Profile Updated Successfully!")
             }
+                .addOnFailureListener {
+                    showToast("Profile Update Failed!")
+                }
+        }
+    }
+
+    private fun setUserData() {
+        val user = auth.currentUser
+        if (user != null) {
+            val userId = auth.currentUser?.uid?:""
+            val userReference = database.getReference("user").child(userId).child("profile")
+
+            // Set all values
+            userReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val userProfile = snapshot.getValue(UserModel::class.java)
+                        if (userProfile != null) {
+                            binding.apply {
+                                edtNameProfile.setText(userProfile.name)
+                                edtAddressProfile.setText(userProfile.address)
+                                edtPhoneProfile.setText(userProfile.phone)
+                                edtEmailProfile.setText(userProfile.email)
+                            }
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    showToast("Failed to load user data")
+                }
+            })
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }

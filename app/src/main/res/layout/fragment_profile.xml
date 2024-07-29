@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,174 +8,199 @@
     android:orientation="vertical"
     android:paddingStart="10dp"
     android:paddingEnd="10dp"
+    android:id="@+id/mail_layout_profile"
     tools:context=".Fragment.ProfileFragment">
 
 
+    <TextView
+        android:id="@+id/edit_profile_link"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:clickable="true"
+        android:drawableLeft="@drawable/edit"
+        android:drawablePadding="8dp"
+        android:fontFamily="@font/acme"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:text="Edit Profile"
+        android:textColor="@color/extra_dark_green"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="10dp"/>
 
     <LinearLayout
+        android:id="@+id/ll_name_profile"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/profileedittextshape"
+        android:elevation="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_link"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tv_name_profile"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/abhaya_libre"
+            android:text="Name"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/edt_name_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="Your Name"
+            android:imeOptions="actionNext"
+            android:inputType="text" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_address_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@drawable/profileedittextshape"
+        android:elevation="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:layout_marginTop="20dp"
+        android:minHeight="57dp"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="374dp"
+        app:layout_constraintTop_toBottomOf="@+id/ll_name_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/profileedittextshape"
-            android:elevation="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp">
-
-            <TextView
-                android:id="@+id/tv_name_profile"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/abhaya_libre"
-                android:text="Name"
-                android:textColor="#000000"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/edt_name_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:inputType="text"
-                android:hint="Haryanvi"
-                android:textColor="@color/black" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_address_profile"
+            android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/profileedittextshape"
-            android:elevation="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp">
+            android:layout_marginLeft="9dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/abhaya_libre"
+            android:text="Address"
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_address_profile"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/abhaya_libre"
-                android:text="Address"
-                android:textColor="#000000"
-                android:textSize="24sp" />
+        <EditText
+            android:id="@+id/edt_address_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autofillHints="postalAddress"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="Your Address"
+            android:inputType="textMultiLine"
+            android:paddingTop="5dp"
+            android:imeOptions="actionNext"
+            android:textSize="18sp" />
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/edt_address_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                android:paddingTop="5dp"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:autofillHints="postalAddress"
-                android:inputType="textMultiLine"
-                android:textColor="@color/black"
-                android:hint="245, Sampal, Haryana, India (124113)" />
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_email_profile"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/profileedittextshape"
+        android:elevation="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:layout_marginTop="20dp"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="515dp"
+        app:layout_constraintTop_toBottomOf="@+id/ll_address_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/profileedittextshape"
-            android:elevation="5dp"
-            android:gravity="center_vertical"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:orientation="horizontal"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp">
+        <TextView
+            android:id="@+id/tv_email_profile"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/abhaya_libre"
+            android:text="E-mail"
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_email_profile"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/abhaya_libre"
-                android:text="E-mail"
-                android:textColor="#000000"
-                android:textSize="24sp" />
+        <EditText
+            android:id="@+id/edt_email_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="Your E-mail Id"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress" />
+    </LinearLayout>
 
-            <EditText
-                android:id="@+id/edt_email_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                android:hint="haryanvi@gmail.com"
-                android:textColor="@color/black"/>
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_phone_profile"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/profileedittextshape"
+        android:elevation="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:layout_marginTop="20dp"
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="440dp"
+        app:layout_constraintTop_toBottomOf="@+id/ll_email_profile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/profileedittextshape"
-            android:elevation="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp">
+        <TextView
+            android:id="@+id/tv_phone_profile"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/abhaya_libre"
+            android:text="Phone "
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tv_phone_profile"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:fontFamily="@font/abhaya_libre"
-                android:text="Phone "
-                android:textColor="#000000"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/edt_phone_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:inputType="number"
-                android:hint="8198594030"
-                android:textColor="@color/black" />
-        </LinearLayout>
-
+        <EditText
+            android:id="@+id/edt_phone_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="Your Phone Number"
+            android:imeOptions="actionDone"
+            android:inputType="number" />
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_save_info_profile"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="30dp"
         android:elevation="10dp"
         android:text="Save Information"
@@ -184,6 +209,9 @@
         android:background="@drawable/greenbuttongradient"
         android:fontFamily="@font/abhaya_libre"
         android:textAllCaps="false"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

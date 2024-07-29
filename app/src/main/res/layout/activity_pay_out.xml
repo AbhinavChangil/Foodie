@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:hint="Rahul Yadav"
+            android:hint="Reciever's Name"
             android:ems="10"
             android:imeOptions="actionNext"
             android:layout_marginLeft="12dp"
@@ -101,9 +101,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:minHeight="57dp"
             android:imeOptions="actionNext"
             android:background="@android:color/transparent"
-            android:hint="245, Saimpal, Haryana, India (124113)"
+            android:hint="Reciever's Address"
             android:layout_marginLeft="12dp"
             android:inputType="textMultiLine"
             android:textColor="@color/black"/>
@@ -142,7 +143,7 @@
             android:ems="10"
             android:imeOptions="actionDone"
             android:background="@android:color/transparent"
-            android:hint="8293846839"
+            android:hint="Reciever's Phone"
             android:layout_marginLeft="12dp"
             android:inputType="number"
             android:textColor="@color/black"/>
@@ -212,7 +213,8 @@
             android:background="@android:color/transparent"
             android:fontFamily="@font/abhaya_libre"
             android:gravity="end"
-            android:text="Rs 450"
+            android:text="₹0"
+            android:textStyle="bold"
             android:textSize="19sp"
             android:paddingRight="32dp"/>
     </LinearLayout>
