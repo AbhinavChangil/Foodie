@@ -129,7 +129,7 @@ class PayOutActivity : AppCompatActivity() {
             }
     }
 
-    private fun addOrderToHistory(orderDetails: OrderDetails){
+    private fun addOrderToHistory(orderDetails: OrderDetails) {
         databaseReference.child("user").child(userId).child("OrderHistory")
             .child(orderDetails.itemPushKey!!)
             .setValue(orderDetails)
@@ -141,7 +141,7 @@ class PayOutActivity : AppCompatActivity() {
             }
     }
 
-    private fun removeItemsFromCart(){
+    private fun removeItemsFromCart() {
         val cartItemsReference = databaseReference.child("user").child(userId).child("CartItems")
         cartItemsReference.removeValue()
     }
