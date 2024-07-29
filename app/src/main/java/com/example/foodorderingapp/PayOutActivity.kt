@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.foodorderingapp.Fragment.CartFragment
 import com.example.foodorderingapp.databinding.ActivityPayOutBinding
+import com.example.foodorderingapp.model.OrderDetails
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -21,27 +22,26 @@ import com.google.firebase.database.ValueEventListener
 import kotlin.time.times
 
 class PayOutActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityPayOutBinding
+    private lateinit var binding: ActivityPayOutBinding
 
     //variables to get user details from firebase
-    private lateinit var auth : FirebaseAuth
-    private lateinit var userName : String
-    private lateinit var userAddress : String
-    private lateinit var userPhone : String
-    private lateinit var totalAmount : String
+    private lateinit var auth: FirebaseAuth
+    private lateinit var userName: String
+    private lateinit var userAddress: String
+    private lateinit var userPhone: String
+    private lateinit var totalAmount: String
 
     //variables to get details from cart fragment via intent
-    private lateinit var payoutFoodName : ArrayList<String>
-    private lateinit var payoutFoodPrice : ArrayList<String>
-    private lateinit var payoutFoodImage : ArrayList<String>
-    private lateinit var payoutFoodDescription : ArrayList<String>
-    private lateinit var payoutFoodIngredients : ArrayList<String>
-    private lateinit var payoutFoodQuantity : ArrayList<Int>
+    private lateinit var payoutFoodName: ArrayList<String>
+    private lateinit var payoutFoodPrice: ArrayList<String>
+    private lateinit var payoutFoodImage: ArrayList<String>
+    private lateinit var payoutFoodDescription: ArrayList<String>
+    private lateinit var payoutFoodIngredients: ArrayList<String>
+    private lateinit var payoutFoodQuantity: ArrayList<Int>
 
     //variables for database reference and userId
     private lateinit var databaseReference: DatabaseReference
     private lateinit var userId: String
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,36 +67,94 @@ class PayOutActivity : AppCompatActivity() {
         payoutFoodName = intent.getStringArrayListExtra("payoutFoodName") as ArrayList<String>
         payoutFoodPrice = intent.getStringArrayListExtra("payoutFoodPrice") as ArrayList<String>
         payoutFoodImage = intent.getStringArrayListExtra("payoutFoodImage") as ArrayList<String>
-        payoutFoodDescription = intent.getStringArrayListExtra("payoutFoodDescription") as ArrayList<String>
-        payoutFoodIngredients = intent.getStringArrayListExtra("payoutFoodIngredients") as ArrayList<String>
+        payoutFoodDescription =
+            intent.getStringArrayListExtra("payoutFoodDescription") as ArrayList<String>
+        payoutFoodIngredients =
+            intent.getStringArrayListExtra("payoutFoodIngredients") as ArrayList<String>
         payoutFoodQuantity = intent.getIntegerArrayListExtra("payoutFoodQuantity") as ArrayList<Int>
 
 
 
         totalAmount = calculateTotalAmount().toString()
-        binding.tvTotalAmountPayout.setText("₹"+totalAmount)
+        binding.tvTotalAmountPayout.setText("₹" + totalAmount)
 
 
         // Place Order Button
-        binding.btnPlaceOrderPayout.setOnClickListener{
-            val bottomSheetDialogFragment = CongratsBottomSheetFragment()
-            bottomSheetDialogFragment.show(supportFragmentManager, "test")
+        binding.btnPlaceOrderPayout.setOnClickListener {
+
+            //order krne k baad data send krenge history me or admin side
+            //so lets get user data fron edit texts
+            userName = binding.edtNamePayout.text.toString().trim()
+            userAddress = binding.edtAddressPayout.text.toString().trim()
+            userPhone = binding.edtPhonePayout.text.toString().trim()
+
+            if (userName.isBlank() || userAddress.isBlank() || userPhone.isBlank()) {
+                showToast("Please fill all details!")
+            } else {
+                placeOrder()
+            }
 
         }
 
 
-
-
     }
+
+    private fun placeOrder() {
+        userId = auth.currentUser?.uid ?: ""
+
+        //we need order details, time, reference here
+        val time = System.currentTimeMillis()
+        //ek new orderDetails k folder me order details save krenge
+        val itemPushKey = databaseReference.child("OrderDetails").push().key
+        val orderDetails = OrderDetails(
+            userId, userName,
+            payoutFoodName, payoutFoodPrice, payoutFoodImage, payoutFoodQuantity,
+            userAddress, totalAmount, userPhone,
+            false, false,
+            itemPushKey, time
+        )
+
+        //ek variable bnaenge jo order reference ko lega
+        val orderReference = databaseReference.child("OrderDetails").child(itemPushKey!!)
+        orderReference.setValue(orderDetails)
+            .addOnSuccessListener {
+                val bottomSheetDialogFragment = CongratsBottomSheetFragment()
+                bottomSheetDialogFragment.show(supportFragmentManager, "test")
+
+                //also remove item from cart if orderdetails are saved
+                removeItemsFromCart()
+
+                //add order to history
+                addOrderToHistory(orderDetails)
+            }
+    }
+
+    private fun addOrderToHistory(orderDetails: OrderDetails){
+        databaseReference.child("user").child(userId).child("OrderHistory")
+            .child(orderDetails.itemPushKey!!)
+            .setValue(orderDetails)
+            .addOnSuccessListener {
+                showToast("Success! order added to history")
+            }
+            .addOnFailureListener {
+                showToast("Failed to add order to history!")
+            }
+    }
+
+    private fun removeItemsFromCart(){
+        val cartItemsReference = databaseReference.child("user").child(userId).child("CartItems")
+        cartItemsReference.removeValue()
+    }
+
 
     private fun calculateTotalAmount(): Int {
         var totalPayAmount = 0
-        for(i in 0 until payoutFoodPrice.size){
+        for (i in 0 until payoutFoodPrice.size) {
             val price = payoutFoodPrice[i]
             val firstChar = price.first()
-            val priceIntValue = if (firstChar == '₹'){
+            val priceIntValue = if (firstChar == '₹') {
                 price.drop(1).trim().toInt()
-            }else{
+            } else {
                 price.trim().toInt()
             }
             var quantity = payoutFoodQuantity[i]
@@ -108,17 +166,17 @@ class PayOutActivity : AppCompatActivity() {
 
     private fun setUserData() {
         val user = auth.currentUser
-        if(user!=null){
-            val userId = auth.currentUser?.uid?:""
+        if (user != null) {
+            val userId = auth.currentUser?.uid ?: ""
             val userReference = databaseReference.child("user").child(userId).child("profile")
 
             //set all values
-            userReference.addListenerForSingleValueEvent(object:ValueEventListener{
+            userReference.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if(snapshot.exists()){
-                        val name = snapshot.child("name").getValue(String::class.java)?:""
-                        val address = snapshot.child("address").getValue(String::class.java)?:""
-                        val phone = snapshot.child("phone").getValue(String::class.java)?:""
+                    if (snapshot.exists()) {
+                        val name = snapshot.child("name").getValue(String::class.java) ?: ""
+                        val address = snapshot.child("address").getValue(String::class.java) ?: ""
+                        val phone = snapshot.child("phone").getValue(String::class.java) ?: ""
                         binding.apply {
                             edtNamePayout.setText(name)
                             edtAddressPayout.setText(address)
