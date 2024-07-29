@@ -10,7 +10,10 @@ import com.bumptech.glide.Glide
 import com.example.foodorderingapp.DetailsActivity
 import com.example.foodorderingapp.databinding.OrderAgainItemBinding
 
-class OrderAgainAdapter (private val orderAgainItemName : MutableList<String>, private val orderAgainItemPrice : MutableList<String>, private val orderAgainItemImage : MutableList<String>, private val requireContext:Context ) : RecyclerView.Adapter<OrderAgainAdapter.OrderAgainViewHolder>() {
+class OrderAgainAdapter (private val orderAgainItemName : MutableList<String>,
+                         private val orderAgainItemPrice : MutableList<String>,
+                         private val orderAgainItemImage : MutableList<String>,
+                         private val requireContext:Context ) : RecyclerView.Adapter<OrderAgainAdapter.OrderAgainViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderAgainViewHolder {
         val binding = OrderAgainItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -24,8 +27,9 @@ class OrderAgainAdapter (private val orderAgainItemName : MutableList<String>, p
         holder.itemView.setOnClickListener {
             //set on click listener to open food item details
             val intent = Intent(requireContext, DetailsActivity::class.java)
-            intent.putExtra("MenuItemName", orderAgainItemName.get(position))
-            intent.putExtra("MenuItemImage", orderAgainItemImage.get(position))
+            intent.putExtra("menuItemName", orderAgainItemName.get(position))
+            intent.putExtra("menuItemPrice", orderAgainItemPrice.get(position))
+            intent.putExtra("menuItemImage", orderAgainItemImage.get(position))
             requireContext.startActivity(intent)
         }
     }

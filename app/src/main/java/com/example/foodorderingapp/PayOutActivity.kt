@@ -32,12 +32,12 @@ class PayOutActivity : AppCompatActivity() {
     private lateinit var totalAmount: String
 
     //variables to get details from cart fragment via intent
-    private lateinit var payoutFoodName: ArrayList<String>
-    private lateinit var payoutFoodPrice: ArrayList<String>
-    private lateinit var payoutFoodImage: ArrayList<String>
-    private lateinit var payoutFoodDescription: ArrayList<String>
+    private lateinit var payoutFoodNames: ArrayList<String>
+    private lateinit var payoutFoodPrices: ArrayList<String>
+    private lateinit var payoutFoodImages: ArrayList<String>
+    private lateinit var payoutFoodDescriptions: ArrayList<String>
     private lateinit var payoutFoodIngredients: ArrayList<String>
-    private lateinit var payoutFoodQuantity: ArrayList<Int>
+    private lateinit var payoutFoodQuantities: ArrayList<Int>
 
     //variables for database reference and userId
     private lateinit var databaseReference: DatabaseReference
@@ -64,14 +64,14 @@ class PayOutActivity : AppCompatActivity() {
 
         //get user details from firebase
         val intent = intent
-        payoutFoodName = intent.getStringArrayListExtra("payoutFoodName") as ArrayList<String>
-        payoutFoodPrice = intent.getStringArrayListExtra("payoutFoodPrice") as ArrayList<String>
-        payoutFoodImage = intent.getStringArrayListExtra("payoutFoodImage") as ArrayList<String>
-        payoutFoodDescription =
+        payoutFoodNames = intent.getStringArrayListExtra("payoutFoodName") as ArrayList<String>
+        payoutFoodPrices = intent.getStringArrayListExtra("payoutFoodPrice") as ArrayList<String>
+        payoutFoodImages = intent.getStringArrayListExtra("payoutFoodImage") as ArrayList<String>
+        payoutFoodDescriptions =
             intent.getStringArrayListExtra("payoutFoodDescription") as ArrayList<String>
         payoutFoodIngredients =
             intent.getStringArrayListExtra("payoutFoodIngredients") as ArrayList<String>
-        payoutFoodQuantity = intent.getIntegerArrayListExtra("payoutFoodQuantity") as ArrayList<Int>
+        payoutFoodQuantities = intent.getIntegerArrayListExtra("payoutFoodQuantity") as ArrayList<Int>
 
 
 
@@ -108,7 +108,7 @@ class PayOutActivity : AppCompatActivity() {
         val itemPushKey = databaseReference.child("OrderDetails").push().key
         val orderDetails = OrderDetails(
             userId, userName,
-            payoutFoodName, payoutFoodPrice, payoutFoodImage, payoutFoodQuantity,
+            payoutFoodNames, payoutFoodPrices, payoutFoodImages, payoutFoodQuantities,
             userAddress, totalAmount, userPhone,
             false, false,
             itemPushKey, time
@@ -126,6 +126,7 @@ class PayOutActivity : AppCompatActivity() {
 
                 //add order to history
                 addOrderToHistory(orderDetails)
+
             }
     }
 
@@ -149,15 +150,15 @@ class PayOutActivity : AppCompatActivity() {
 
     private fun calculateTotalAmount(): Int {
         var totalPayAmount = 0
-        for (i in 0 until payoutFoodPrice.size) {
-            val price = payoutFoodPrice[i]
+        for (i in 0 until payoutFoodPrices.size) {
+            val price = payoutFoodPrices[i]
             val firstChar = price.first()
             val priceIntValue = if (firstChar == '₹') {
                 price.drop(1).trim().toInt()
             } else {
                 price.trim().toInt()
             }
-            var quantity = payoutFoodQuantity[i]
+            var quantity = payoutFoodQuantities[i]
 
             totalPayAmount += priceIntValue * quantity
         }

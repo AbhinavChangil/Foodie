@@ -31,7 +31,7 @@ class HistoryFragment : Fragment() {
     private lateinit var database: FirebaseDatabase
     private lateinit var auth: FirebaseAuth
     private lateinit var userId: String
-    private var listOfOrderItems: MutableList<OrderDetails> = mutableListOf()
+    private var listOfOrderItems: ArrayList<OrderDetails> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +64,7 @@ class HistoryFragment : Fragment() {
     private fun seeItemsRecentOrder() {
         listOfOrderItems.firstOrNull()?.let{ recentOrder ->
             val intent = Intent(requireContext(), RecentOrderItems::class.java)
-            intent.putExtra("recentOrderItem", recentOrder)
+            intent.putExtra("recentOrderItemPassed", listOfOrderItems)
             startActivity(intent)
         }
     }
@@ -127,7 +127,7 @@ class HistoryFragment : Fragment() {
         }
     }
 
-    //function t setup previous order recycler view
+    //function to setup previous order recycler view
     private fun setPreviousOrderItemsRecyclerView() {
         //food name, price, image
         val orderAgainFoodNames = mutableListOf<String>()
