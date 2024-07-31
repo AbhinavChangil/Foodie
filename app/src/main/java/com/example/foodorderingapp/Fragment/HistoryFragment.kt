@@ -41,7 +41,7 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        binding = FragmentHistoryBinding.inflate(layoutInflater, container, false)
 
         // Initialize auth and database
         auth = FirebaseAuth.getInstance()
@@ -73,7 +73,7 @@ class HistoryFragment : Fragment() {
             database.reference.child("CompletedOrders").child(it)
         } ?: return
 
-        completedOrdersReference.child("paymentReceived").addValueEventListener(object : ValueEventListener {
+        completedOrdersReference.child("paymentRecieved").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (!isAdded) return
 
@@ -81,7 +81,7 @@ class HistoryFragment : Fragment() {
                 if (paymentReceived) {
                     binding.btnPayHistory.text = "Paid"
                 } else {
-                    completedOrdersReference.child("paymentReceived").setValue(true).addOnCompleteListener { task ->
+                    completedOrdersReference.child("paymentRecieved").setValue(true).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             binding.btnPayHistory.text = "Paid"
                         } else {
@@ -123,7 +123,7 @@ class HistoryFragment : Fragment() {
                         database.reference.child("CompletedOrders").child(it)
                     } ?: return
 
-                    completedOrdersReference.child("paymentReceived").addValueEventListener(object : ValueEventListener {
+                    completedOrdersReference.child("paymentRecieved").addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if (!isAdded) return
 

@@ -128,6 +128,9 @@ class PayOutActivity : AppCompatActivity() {
                 addOrderToHistory(orderDetails)
 
             }
+            .addOnFailureListener {
+                showToast("Failed to open congrats fragment")
+            }
     }
 
     private fun addOrderToHistory(orderDetails: OrderDetails) {
