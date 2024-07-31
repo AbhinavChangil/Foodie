@@ -80,7 +80,7 @@ class CartFragment : Fragment() {
         val foodQuantities = cartAdapter.getUpdatedItemQuantities()
 
         // details ko list me add kr lenge
-        orderIdReference.addListenerForSingleValueEvent(object : ValueEventListener {
+        orderIdReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 for (foodSnapshot in snapshot.children) {

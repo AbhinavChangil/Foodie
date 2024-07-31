@@ -1,6 +1,7 @@
 package com.example.foodorderingapp.Fragment
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,13 +22,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-
 class HistoryFragment : Fragment() {
 
-    private lateinit var binding : FragmentHistoryBinding
+    private lateinit var binding: FragmentHistoryBinding
     private lateinit var orderAgainAdapter: OrderAgainAdapter
 
-    //variables for getting data from order details
+    // Variables for getting data from order details
     private lateinit var database: FirebaseDatabase
     private lateinit var auth: FirebaseAuth
     private lateinit var userId: String
@@ -41,99 +41,164 @@ class HistoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentHistoryBinding.inflate(inflater, container, false)
 
-        binding = FragmentHistoryBinding.inflate(layoutInflater, container, false)
-
-        //initialize auth and database
+        // Initialize auth and database
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance()
 
-        //retrieve and display the user order history
+        // Retrieve and display the user order history
         retrieveOrderHistory()
 
-        //set on click listner on order item
+        // Set on click listener on order item
         binding.constraintLayoutRecentOrder.setOnClickListener {
             seeItemsRecentOrder()
         }
 
+        // Received button functioning
+        binding.btnPayHistory.setOnClickListener {
+            // Update payment status in CompletedOrders
+            updateOrderStatus()
+        }
 
         // Inflate the layout for this fragment
         return binding.root
     }
 
+    private fun updateOrderStatus() {
+        if (!isAdded) return
+
+        val itemPushKey = listOfOrderItems.getOrNull(0)?.itemPushKey
+        val completedOrdersReference = itemPushKey?.let {
+            database.reference.child("CompletedOrders").child(it)
+        } ?: return
+
+        completedOrdersReference.child("paymentReceived").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (!isAdded) return
+
+                val paymentReceived = snapshot.getValue(Boolean::class.java) ?: false
+                if (paymentReceived) {
+                    binding.btnPayHistory.text = "Paid"
+                } else {
+                    completedOrdersReference.child("paymentReceived").setValue(true).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            binding.btnPayHistory.text = "Paid"
+                        } else {
+                            binding.btnPayHistory.text = "Pay"
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle possible errors
+            }
+        })
+    }
+
+    private fun setDataInRecentOrderItem() {
+        if (!isAdded) return
+
+        binding.constraintLayoutRecentOrder.visibility = View.VISIBLE
+        val recentOrderItem = listOfOrderItems.firstOrNull()
+        recentOrderItem?.let {
+            with(binding) {
+                tvFoodNameRecentOrder.text = it.foodNamesOrderDetails?.firstOrNull() ?: ""
+                tvFoodPriceRecentOrder.text = it.foodPricesOrderDetails?.firstOrNull() ?: ""
+                val image = it.foodImagesOrderDetails?.firstOrNull() ?: ""
+                val uri = Uri.parse(image)
+                Glide.with(requireContext())
+                    .load(uri)
+                    .into(imgRecentOrder)
+
+                val isOrderAccepted = it.orderAccepted
+                if (isOrderAccepted) {
+                    orderStatus.background.setTint(Color.parseColor("#218A3E"))
+                    btnPayHistory.visibility = View.VISIBLE
+
+                    // Check payment status
+                    val itemPushKey = it.itemPushKey
+                    val completedOrdersReference = itemPushKey?.let {
+                        database.reference.child("CompletedOrders").child(it)
+                    } ?: return
+
+                    completedOrdersReference.child("paymentReceived").addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (!isAdded) return
+
+                            val paymentReceived = snapshot.getValue(Boolean::class.java) ?: false
+                            if (paymentReceived) {
+                                btnPayHistory.text = "Paid"
+                            } else {
+                                btnPayHistory.text = "Pay"
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            // Handle possible errors
+                        }
+                    })
+                }
+            }
+        }
+    }
+
     private fun seeItemsRecentOrder() {
-        listOfOrderItems.firstOrNull()?.let{ recentOrder ->
-            val intent = Intent(requireContext(), RecentOrderItems::class.java)
+        if (!isAdded) return
+
+        listOfOrderItems.firstOrNull()?.let { recentOrder ->
+            val intent = Intent(context, RecentOrderItems::class.java)
             intent.putExtra("recentOrderItemPassed", listOfOrderItems)
             startActivity(intent)
         }
     }
 
-    //function to retrieve recent history item
+    // Function to retrieve recent history item
     private fun retrieveOrderHistory() {
-        //disable recent order if no order is placed
+        if (!isAdded) return
+
+        // Disable recent order if no order is placed
         binding.constraintLayoutRecentOrder.visibility = View.INVISIBLE
-        userId = auth.currentUser?.uid?:""
+        userId = auth.currentUser?.uid ?: ""
 
-
-        val orderItemReference : DatabaseReference = database.reference.child("user").child(userId).child("OrderHistory")
+        val orderItemReference: DatabaseReference = database.reference.child("user").child(userId).child("OrderHistory")
         val sortingQuery = orderItemReference.orderByChild("currentTime")
 
-        sortingQuery.addListenerForSingleValueEvent(object: ValueEventListener{
+        sortingQuery.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (orderSnapshot in snapshot.children){
+                if (!isAdded) return
+
+                for (orderSnapshot in snapshot.children) {
                     val orderHistoryItem = orderSnapshot.getValue(OrderDetails::class.java)
                     orderHistoryItem?.let {
                         listOfOrderItems.add(it)
                     }
                 }
                 listOfOrderItems.reverse()
-                if(listOfOrderItems.isNotEmpty()){
-                    //display the most recent order details
+                if (listOfOrderItems.isNotEmpty()) {
+                    // Display the most recent order details
                     setDataInRecentOrderItem()
-                    //set up the recycler view with previous order details
+                    // Set up the recycler view with previous order details
                     setPreviousOrderItemsRecyclerView()
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                // Handle possible errors
             }
-
         })
     }
 
-    private fun setDataInRecentOrderItem() {
-        binding.constraintLayoutRecentOrder.visibility = View.VISIBLE
-        val recentOrderItem = listOfOrderItems.firstOrNull()
-        recentOrderItem?.let {
-            with(binding){
-                tvFoodNameRecentOrder.text = it.foodNamesOrderDetails?.firstOrNull()?:""
-                tvFoodPriceRecentOrder.text = it.foodPricesOrderDetails?.firstOrNull()?:""
-                //image kko glide se show kraenge
-                val image = it.foodImagesOrderDetails?.firstOrNull()?:""
-                val uri = Uri.parse(image)
-                Glide.with(requireContext())
-                    .load(uri)
-                    .into(imgRecentOrder)
-
-
-//                listOfOrderItems.reverse()
-//                if(listOfOrderItems.isNotEmpty()){
-//                    //
-//                }
-
-            }
-        }
-    }
-
-    //function to setup previous order recycler view
+    // Function to set up previous order recycler view
     private fun setPreviousOrderItemsRecyclerView() {
-        //food name, price, image
+        if (!isAdded) return
+
+        // Food name, price, image
         val orderAgainFoodNames = mutableListOf<String>()
         val orderAgainFoodPrices = mutableListOf<String>()
         val orderAgainFoodImages = mutableListOf<String>()
-        for(i in 1 until listOfOrderItems.size){
+        for (i in 1 until listOfOrderItems.size) {
             listOfOrderItems[i].foodNamesOrderDetails?.firstOrNull()?.let { orderAgainFoodNames.add(it) }
             listOfOrderItems[i].foodPricesOrderDetails?.firstOrNull()?.let { orderAgainFoodPrices.add(it) }
             listOfOrderItems[i].foodImagesOrderDetails?.firstOrNull()?.let { orderAgainFoodImages.add(it) }
@@ -148,5 +213,4 @@ class HistoryFragment : Fragment() {
         )
         rv.adapter = orderAgainAdapter
     }
-
 }

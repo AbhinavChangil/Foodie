@@ -100,7 +100,7 @@ class ProfileFragment : Fragment() {
             val userReference = database.getReference("user").child(userId).child("profile")
 
             // Set all values
-            userReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            userReference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         val userProfile = snapshot.getValue(UserModel::class.java)

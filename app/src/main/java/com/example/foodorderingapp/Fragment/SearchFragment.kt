@@ -67,7 +67,7 @@ class SearchFragment : Fragment() {
         val foodRef: DatabaseReference = database.reference.child("menu")
         searchMenuItems = mutableListOf()
 
-        foodRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        foodRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (foodSnapshot in snapshot.children) {
                     val menuItem = foodSnapshot.getValue(MenuItem::class.java)

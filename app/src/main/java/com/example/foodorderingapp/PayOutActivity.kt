@@ -119,7 +119,7 @@ class PayOutActivity : AppCompatActivity() {
         orderReference.setValue(orderDetails)
             .addOnSuccessListener {
                 val bottomSheetDialogFragment = CongratsBottomSheetFragment()
-                bottomSheetDialogFragment.show(supportFragmentManager, "test")
+                bottomSheetDialogFragment.show(supportFragmentManager, "test1")
 
                 //also remove item from cart if orderdetails are saved
                 removeItemsFromCart()
@@ -145,6 +145,7 @@ class PayOutActivity : AppCompatActivity() {
     private fun removeItemsFromCart() {
         val cartItemsReference = databaseReference.child("user").child(userId).child("CartItems")
         cartItemsReference.removeValue()
+        showToast("Items Removed from Cart!")
     }
 
 
@@ -188,7 +189,7 @@ class PayOutActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    showToast("Failed to load User Data!")
                 }
 
             })

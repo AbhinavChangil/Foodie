@@ -103,22 +103,23 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="51dp"
-                app:cardBackgroundColor="#4CAF50"
+                android:backgroundTint="#717171"
                 app:cardCornerRadius="40dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/btn_recieved_history"/>
+                app:layout_constraintBottom_toTopOf="@+id/btn_pay_history"/>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_recieved_history"
+                android:id="@+id/btn_pay_history"
                 android:layout_width="87dp"
                 android:layout_height="29dp"
-                android:text="Recieved"
+                android:text="Pay"
                 android:textSize="14sp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:textAllCaps="false"
+                android:visibility="invisible"
                 android:textColor="@color/white"
                 android:background="@drawable/addtocartshape"
                 app:layout_constraintBottom_toBottomOf="parent"

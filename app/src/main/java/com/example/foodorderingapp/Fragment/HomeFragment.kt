@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
         menuItemsPopular = mutableListOf()
 
         //retrieve menuItems from the database
-        foodRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        foodRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (foodSnapshot in snapshot.children) {
                     val menuItem = foodSnapshot.getValue(MenuItem::class.java)
