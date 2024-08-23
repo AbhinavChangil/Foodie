@@ -61,4 +61,8 @@ dependencies {
 
     //glide dependency for loading image
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.4")
+    implementation("androidx.lifecycle:lifecycle-livedata:2.8.4")
 }
